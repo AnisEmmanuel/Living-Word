@@ -94,6 +94,13 @@
 
   /* 66 Books */
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .testament-toggle{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .testament-toggle button{flex:1;min-width:140px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 18px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--slate);transition:.2s;text-align:center}
+  .testament-toggle button .tt-hi{display:block;font-family:'Tiro Devanagari Hindi',serif;font-size:13px;font-weight:400;margin-top:2px;opacity:.8}
+  .testament-toggle button .tt-count{display:block;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.05em;margin-top:4px;color:var(--gold);text-transform:uppercase}
+  .testament-toggle button:hover{border-color:var(--gold-soft)}
+  .testament-toggle button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .testament-toggle button.on .tt-count{color:var(--gold-soft)}
   .filters button{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:7px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--slate);transition:.2s}
   .filters button:hover{border-color:var(--gold-soft)}
   .filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -390,6 +397,7 @@
       <div class="lbl">★ Saved · सहेजे गए</div>
       <div class="saved-chips" id="saved-chips"></div>
     </div>
+    <div class="testament-toggle" id="test-toggle"></div>
     <div class="filters" id="filters"></div>
     <input class="search" id="search" placeholder="Search a book… · पुस्तक खोजें…" />
     <div id="books-out"></div>
@@ -1224,14 +1232,31 @@ $('prog-reset').onclick=()=>{
 };
 
 const cats=['All','Law','History','Wisdom','Prophets','Gospels','Letters','Prophecy'];
-let activeCat='All',query='';
+let activeCat='All',query='',activeTest='all';
+// Testament toggle (All / Old / New)
+const ttbar=$('test-toggle');
+const otCount=BOOKS.filter(b=>b.testament==='old').length, ntCount=BOOKS.filter(b=>b.testament==='new').length;
+const testaments=[
+  {k:'all',en:'All Books',hi:'सभी पुस्तकें',count:BOOKS.length+' books'},
+  {k:'old',en:'Old Testament',hi:'पुराना नियम',count:otCount+' books'},
+  {k:'new',en:'New Testament',hi:'नया नियम',count:ntCount+' books'}
+];
+testaments.forEach(t=>{
+  const b=document.createElement('button');
+  if(t.k==='all')b.classList.add('on');
+  b.innerHTML=`${t.en}<span class="tt-hi">${t.hi}</span><span class="tt-count">${t.count}</span>`;
+  b.onclick=()=>{activeTest=t.k;[...ttbar.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');renderBooks();};
+  ttbar.appendChild(b);
+});
 const fbar=$('filters');
 cats.forEach(c=>{const b=document.createElement('button');b.textContent=c;if(c==='All')b.classList.add('on');b.onclick=()=>{activeCat=c;[...fbar.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');renderBooks();};fbar.appendChild(b);});
 $('search').addEventListener('input',e=>{query=e.target.value.toLowerCase().trim();renderBooks();});
 
 function renderBooks(){
   const out=$('books-out');out.innerHTML='';
-  const groups=[['old','Old Testament · पुराना नियम'],['new','New Testament · नया नियम']];
+  let groups=[['old','Old Testament · पुराना नियम'],['new','New Testament · नया नियम']];
+  if(activeTest==='old')groups=[['old','Old Testament · पुराना नियम']];
+  else if(activeTest==='new')groups=[['new','New Testament · नया नियम']];
   let shown=0;
   groups.forEach(([tk,label])=>{
     let list=BOOKS.filter(b=>b.testament===tk);
