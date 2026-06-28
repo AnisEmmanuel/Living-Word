@@ -36,6 +36,14 @@
   .sec-num{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:18px}
   .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,4vw,42px);line-height:1.1;margin-top:4px}
   .sec-head p{color:var(--slate);margin-top:8px;max-width:600px}
+  /* collapsible */
+  .collapsible .sec-head{cursor:pointer;position:relative;user-select:none;transition:margin .3s}
+  .collapsible .sec-head .chev{position:absolute;right:0;top:50%;transform:translateY(-50%) rotate(0deg);transition:transform .3s;color:var(--gold);font-size:22px}
+  .collapsible.closed .sec-head .chev{transform:translateY(-50%) rotate(-90deg)}
+  .collapsible.closed .sec-head{margin-bottom:0}
+  .sec-body{overflow:hidden;transition:max-height .45s ease,opacity .35s ease;max-height:12000px;opacity:1}
+  .collapsible.closed .sec-body{max-height:0;opacity:0}
+  .collapsible .sec-head:hover h2{color:var(--ink)}
 
   /* Daily */
   .daily{background:linear-gradient(160deg,#fffdf8,#f2ead8);border:1px solid var(--line);border-radius:4px;padding:40px;box-shadow:0 18px 40px -24px var(--shadow);position:relative;overflow:hidden}
@@ -157,6 +165,33 @@
   footer{text-align:center;padding:48px 24px 64px;color:var(--slate)}
   footer .om{color:var(--gold-soft);font-size:18px;margin-bottom:12px}
   footer .hindi{margin-top:6px;color:var(--wine)}
+  footer .credit{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+  /* Daily extras */
+  .daily-date{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:14px;opacity:.85}
+  .daily-actions{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .share-btn{background:#1faa52;color:#fff;border:none;border-radius:24px;padding:11px 20px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.02em;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+  .share-btn:hover{background:#17813f}
+  .wa-ico{flex-shrink:0;display:block}
+  .share-btn span,.prayer .pshare span{line-height:1;display:inline-block}
+  .refresh.ghost{background:none;color:var(--slate);border:1px solid var(--line)}
+  .refresh.ghost:hover{background:var(--paper-deep);color:var(--ink)}
+  .copied-note{font-size:12px;color:var(--gold);margin-top:10px;display:none}
+  .copied-note.show{display:block;animation:fade .4s ease}
+
+  /* Prayers */
+  .prayer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .prayer{background:#fffdf8;border:1px solid var(--line);border-radius:6px;padding:26px;position:relative;overflow:hidden;transition:.2s}
+  .prayer::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(var(--gold-soft),var(--wine))}
+  .prayer:hover{transform:translateY(-3px);box-shadow:0 16px 34px -20px var(--shadow)}
+  .prayer .when{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .prayer .when .ic{font-size:22px}
+  .prayer .when .t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;line-height:1}
+  .prayer .when .thi{font-size:14px;color:var(--wine)}
+  .prayer .body{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.5;font-style:italic;color:var(--ink)}
+  .prayer .body-hi{margin-top:12px;font-size:16px;line-height:1.7;color:var(--wine);font-style:normal}
+  .prayer .pshare{margin-top:16px;background:none;border:1px solid var(--line);border-radius:18px;padding:7px 14px;font-size:12px;color:var(--slate);cursor:pointer;font-family:inherit;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+  .prayer .pshare:hover{border-color:#1faa52;color:#1faa52}
 
   @media(max-width:560px){.daily{padding:28px}.mr-tag{min-width:auto}.modal-head,.modal-body{padding-left:22px;padding-right:22px}}
 </style>
@@ -175,6 +210,7 @@
     <button data-go="mood">By Mood</button>
     <button data-go="books66">66 Books</button>
     <button data-go="spirit">Holy Spirit</button>
+    <button data-go="prayers">Prayers</button>
   </div>
 </nav>
 
@@ -183,8 +219,9 @@
   <!-- TODAY -->
   <section id="today">
     <div class="sec-head"><div class="sec-num">i</div><h2>Thought for the Day</h2>
-      <p>A verse, its meaning, and a small practice to carry. <span class="hindi">आज का विचार।</span></p></div>
+      <p>One verse for today — the same for everyone, refreshed each morning. <span class="hindi">आज का विचार — हर दिन एक नया।</span></p></div>
     <div class="daily">
+      <div class="daily-date" id="d-date"></div>
       <div class="label">Word of the Day · आज का वचन</div>
       <div class="verse" id="d-verse"></div>
       <div class="verse hindi verse-hi" id="d-verse-hi"></div>
@@ -192,14 +229,18 @@
       <div class="reflect"><b>Reflection · चिंतन</b>
         <p id="d-reflect"></p>
         <p class="hindi" id="d-reflect-hi" style="color:var(--wine);margin-top:6px"></p></div>
-      <button class="refresh" id="d-refresh">New thought · नया विचार</button>
+      <div class="daily-actions">
+        <button class="share-btn" id="d-share"><svg class="wa-ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.523 5.26l-.999 3.648 3.535-.927zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg><span>Share on WhatsApp · व्हाट्सएप पर भेजें</span></button>
+        <button class="refresh ghost" id="d-refresh">See another · दूसरा देखें</button>
+      </div>
     </div>
   </section>
 
   <!-- MOOD -->
-  <section id="mood">
+  <section id="mood" class="collapsible closed">
     <div class="sec-head"><div class="sec-num">ii</div><h2>How is your heart today?</h2>
-      <p>Choose what you feel. Receive a chapter to read and a word to hold. <span class="hindi">अपना मन चुनिए।</span></p></div>
+      <p>Choose what you feel. Receive a chapter to read and a word to hold. <span class="hindi">अपना मन चुनिए।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body">
     <div class="moods" id="mood-grid"></div>
     <div class="mood-result" id="mood-result">
       <div class="mr-top"><div class="feeling" id="mr-feel"></div><div class="feeling hindi feeling-hi" id="mr-feel-hi"></div></div>
@@ -209,12 +250,14 @@
         <div class="mr-quote" id="mr-quote"></div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- 66 BOOKS -->
-  <section id="books66">
+  <section id="books66" class="collapsible closed">
     <div class="sec-head"><div class="sec-num">iii</div><h2>The 66 Books</h2>
-      <p>Every book in brief — its story, key people, and life lessons in English and Hindi. Tap to open; mark as read or save a favorite. <span class="hindi">बाइबल की सभी 66 पुस्तकें — पढ़ी हुई चिह्नित करें या सहेजें।</span></p></div>
+      <p>Every book in brief — its story, key people, and life lessons in English and Hindi. Tap to open; mark as read or save a favorite. <span class="hindi">बाइबल की सभी 66 पुस्तकें — पढ़ी हुई चिह्नित करें या सहेजें।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body">
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
       <div class="progress-txt" id="prog-txt">0 of 66 read</div>
@@ -227,13 +270,21 @@
     <div class="filters" id="filters"></div>
     <input class="search" id="search" placeholder="Search a book… · पुस्तक खोजें…" />
     <div id="books-out"></div>
+    </div>
   </section>
 
   <!-- SPIRIT -->
-  <section id="spirit" style="border-bottom:none">
+  <section id="spirit" class="collapsible closed">
     <div class="sec-head"><div class="sec-num">iv</div><h2>Guidance of the Holy Spirit</h2>
-      <p>Nine fruits to grow, and how to walk by them daily. <span class="hindi">पवित्र आत्मा का मार्गदर्शन।</span></p></div>
-    <div class="spirit-grid" id="spirit-grid"></div>
+      <p>Nine fruits to grow, and how to walk by them daily. <span class="hindi">पवित्र आत्मा का मार्गदर्शन।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body"><div class="spirit-grid" id="spirit-grid"></div></div>
+  </section>
+
+  <!-- PRAYERS -->
+  <section id="prayers" class="collapsible closed" style="border-bottom:none">
+    <div class="sec-head"><div class="sec-num">v</div><h2>Prayers for the Day</h2>
+      <p>A few prayers to say together — at waking, at meals, and at rest. <span class="hindi">दिन भर के लिए कुछ प्रार्थनाएँ।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body"><div class="prayer-grid" id="prayer-grid"></div></div>
   </section>
 
 </main>
@@ -247,6 +298,7 @@
   <div class="om">✦</div>
   <div>A quiet place to read and reflect — all 66 books, in two tongues.</div>
   <div class="hindi">पढ़ने और मनन का एक शांत स्थान — दो भाषाओं में सभी 66 पुस्तकें।</div>
+  <div class="credit">© 2026 · Designed by Anis Emmanuel</div>
 </footer>
 
 <script>
@@ -656,13 +708,58 @@ const fruits=[
  {ico:"🌿",en:"Gentleness",hi:"नम्रता",d:"Strength held under control. Soften your tone in one hard conversation."},
  {ico:"⚖️",en:"Self-control",hi:"संयम",d:"Saying no to lead yourself well. Pause before one reaction today."}
 ];
+const prayers=[
+ {ic:"🌅",when:"Morning",whenhi:"प्रातःकाल",
+  en:"Father, thank You for this new day. Lead me in Your ways, guard my words, and let me be a blessing to everyone I meet. I place this day in Your hands.",
+  hi:"पिता, इस नए दिन के लिए धन्यवाद। मुझे अपने मार्गों में चला, मेरी वाणी की रक्षा कर, और मुझे हर एक के लिए आशीष बना दे। मैं यह दिन तेरे हाथों में सौंपता हूँ।"},
+ {ic:"🍞",when:"At Meals",whenhi:"भोजन के समय",
+  en:"Lord, thank You for this food and the hands that prepared it. Bless it to our bodies, and make us mindful of those who have less. We are grateful.",
+  hi:"प्रभु, इस भोजन और इसे बनाने वाले हाथों के लिए धन्यवाद। इसे हमारे शरीरों के लिए आशीषित कर, और हमें उनकी सुधि दिला जिनके पास कम है। हम आभारी हैं।"},
+ {ic:"💼",when:"For Work",whenhi:"काम के लिए",
+  en:"God, give me strength and honesty in my work today. Help me do it well, treat others with kindness, and trust You with what I cannot control.",
+  hi:"परमेश्वर, आज मेरे काम में मुझे शक्ति और ईमानदारी दे। मुझे इसे अच्छे से करने, औरों से दया से पेश आने, और जो मेरे वश में नहीं उसे तुझ पर छोड़ने में सहायता कर।"},
+ {ic:"🛡️",when:"In Worry",whenhi:"चिंता में",
+  en:"Lord, my heart is heavy and my mind is restless. I give You my fears one by one. Fill the empty places with Your peace, and remind me that You hold me.",
+  hi:"प्रभु, मेरा मन भारी और बेचैन है। मैं अपने भय एक-एक कर तुझे देता हूँ। खाली स्थानों को अपनी शांति से भर दे, और मुझे याद दिला कि तू मुझे थामे है।"},
+ {ic:"👨‍👩‍👧",when:"For Family",whenhi:"परिवार के लिए",
+  en:"Father, watch over my family wherever they are. Keep us close in love, patient with one another, and united in You. Protect each one today.",
+  hi:"पिता, मेरे परिवार पर, वे जहाँ भी हों, दृष्टि रख। हमें प्रेम में निकट, एक-दूसरे के साथ धीरजवन्त, और तुझ में एक बनाए रख। आज हर एक की रक्षा कर।"},
+ {ic:"🌙",when:"At Night",whenhi:"रात्रि में",
+  en:"Lord, as this day ends, I thank You for Your faithfulness through it. Forgive where I failed, quiet my heart, and give me rest under Your care.",
+  hi:"प्रभु, जैसे यह दिन समाप्त होता है, इसमें तेरी विश्वासयोग्यता के लिए धन्यवाद। जहाँ मैं चूका क्षमा कर, मेरे मन को शांत कर, और तेरी देखरेख में मुझे विश्राम दे।"}
+];
 
-/* ===== Daily ===== */
-let dI=Math.floor(Math.random()*daily.length);
+/* ===== Daily (date-based: same verse for everyone each day) ===== */
 const $=id=>document.getElementById(id);
-function renderDaily(){const d=daily[dI];$('d-verse').textContent='"'+d.v+'"';$('d-verse-hi').textContent='"'+d.hi+'"';$('d-ref').textContent=d.ref;$('d-reflect').textContent=d.r;$('d-reflect-hi').textContent=d.rhi;}
+function dayNumber(){ // days since epoch, local
+  const now=new Date();
+  const start=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  return Math.floor(start.getTime()/86400000);
+}
+let dI=((dayNumber()%daily.length)+daily.length)%daily.length;
+let manualOffset=0;
+function fmtDate(){
+  const d=new Date();
+  return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+function renderDaily(){
+  const d=daily[dI];
+  $('d-date').textContent='📅 '+fmtDate();
+  $('d-verse').textContent='"'+d.v+'"';
+  $('d-verse-hi').textContent='"'+d.hi+'"';
+  $('d-ref').textContent=d.ref;
+  $('d-reflect').textContent=d.r;
+  $('d-reflect-hi').textContent=d.rhi;
+}
 renderDaily();
-$('d-refresh').onclick=()=>{dI=(dI+1)%daily.length;renderDaily();};
+// "See another" cycles without losing the date anchor on reload
+$('d-refresh').onclick=()=>{manualOffset=(manualOffset+1);dI=(((dayNumber()+manualOffset)%daily.length)+daily.length)%daily.length;renderDaily();};
+// WhatsApp share of the current daily verse (works on phone + desktop)
+$('d-share').onclick=()=>{
+  const d=daily[dI];
+  const txt=`📖 Word of the Day · आज का वचन\n\n"${d.v}"\n— ${d.ref}\n\n"${d.hi}"\n\n🙏 ${d.r}\n\nLiving Word · जीवित वचन`;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+};
 
 /* ===== Mood ===== */
 const mg=$('mood-grid');
@@ -671,6 +768,21 @@ moods.forEach((m,i)=>{const b=document.createElement('div');b.className='mood';b
 /* ===== Spirit ===== */
 const sg=$('spirit-grid');
 fruits.forEach(f=>{const el=document.createElement('div');el.className='gift';el.innerHTML=`<div class="ico">${f.ico}</div><h3>${f.en}</h3><div class="h3hi hindi">${f.hi}</div><p>${f.d}</p>`;sg.appendChild(el);});
+
+/* ===== Prayers ===== */
+const pg=$('prayer-grid');
+prayers.forEach(p=>{
+  const el=document.createElement('div');el.className='prayer';
+  el.innerHTML=`<div class="when"><span class="ic">${p.ic}</span><div><div class="t">${p.when}</div><div class="thi hindi">${p.whenhi}</div></div></div>
+    <div class="body">${p.en}</div>
+    <div class="body-hi hindi">${p.hi}</div>
+    <button class="pshare"><svg class="wa-ico" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.523 5.26l-.999 3.648 3.535-.927zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg><span>Share · भेजें</span></button>`;
+  el.querySelector('.pshare').onclick=()=>{
+    const txt=`🙏 ${p.when} Prayer · ${p.whenhi} प्रार्थना\n\n${p.en}\n\n${p.hi}\n\nLiving Word · जीवित वचन`;
+    window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  };
+  pg.appendChild(el);
+});
 
 /* ===== 66 Books ===== */
 /* Persistent state: read + saved (per browser, via localStorage) */
@@ -781,9 +893,20 @@ $('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))closeModal(
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* ===== Nav ===== */
+/* ===== Collapsible sections ===== */
+function openSection(sec){ if(sec&&sec.classList.contains('collapsible')) sec.classList.remove('closed'); }
+document.querySelectorAll('.collapsible .sec-head').forEach(head=>{
+  head.addEventListener('click',()=>head.parentElement.classList.toggle('closed'));
+});
+
 const navBtns=document.querySelectorAll('nav button');
-navBtns.forEach(b=>b.onclick=()=>$( b.dataset.go).scrollIntoView({behavior:'smooth'}));
-const secs=['today','mood','books66','spirit'].map(id=>$(id));
+navBtns.forEach(b=>b.onclick=()=>{
+  const sec=$(b.dataset.go);
+  openSection(sec);
+  // wait a tick so the section has expanded before scrolling to it
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),60);
+});
+const secs=['today','mood','books66','spirit','prayers'].map(id=>$(id));
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navBtns.forEach(b=>b.classList.toggle('on',b.dataset.go===e.target.id));}),{rootMargin:'-40% 0px -55% 0px'});
 secs.forEach(s=>obs.observe(s));
 </script>
