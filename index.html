@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#a67c34">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Living Word">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Living Word · जीवित वचन</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -11,7 +15,16 @@
     --gold:#a67c34;--gold-soft:#c9a85f;--wine:#6b2c35;--slate:#3f4a52;
     --line:#d9cfba;--shadow:rgba(40,32,20,.12);
     --ot:#3f4a52;--nt:#6b2c35;
+    --card:var(--card);
+    --fs:1;
   }
+  body.dark{
+    --ink:#ece4d4;--paper:#1a1714;--paper-deep:#252019;
+    --gold:#d4a85a;--gold-soft:#b89150;--wine:#c98a96;--slate:#a89e8e;
+    --line:#3a342b;--shadow:rgba(0,0,0,.5);--ot:#7e8a98;--nt:#c98a96;--card:#221e18;
+  }
+  body.dark{background:radial-gradient(circle at 20% 0%,#221d17 0%,transparent 55%),var(--paper)}
+  body{font-size:calc(1rem * var(--fs))}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:radial-gradient(circle at 20% 0%, #fbf8f0 0%, transparent 55%),var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -46,7 +59,7 @@
   .collapsible .sec-head:hover h2{color:var(--ink)}
 
   /* Daily */
-  .daily{background:linear-gradient(160deg,#fffdf8,#f2ead8);border:1px solid var(--line);border-radius:4px;padding:40px;box-shadow:0 18px 40px -24px var(--shadow);position:relative;overflow:hidden}
+  .daily{background:linear-gradient(160deg,var(--card),#f2ead8);border:1px solid var(--line);border-radius:4px;padding:40px;box-shadow:0 18px 40px -24px var(--shadow);position:relative;overflow:hidden}
   .daily::after{content:"";position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(var(--gold),var(--wine))}
   .daily .label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
   .verse{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.4vw,34px);line-height:1.35;margin:18px 0 8px;font-weight:500}
@@ -59,12 +72,12 @@
 
   /* Mood */
   .moods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-  .mood{background:#fffdf8;border:1px solid var(--line);border-radius:4px;padding:18px 16px;cursor:pointer;transition:.2s;text-align:left}
+  .mood{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 16px;cursor:pointer;transition:.2s;text-align:left}
   .mood:hover{border-color:var(--gold-soft);transform:translateY(-2px);box-shadow:0 12px 24px -16px var(--shadow)}
   .mood .emoji{font-size:26px;display:block;margin-bottom:8px}
   .mood .en{font-weight:600;font-size:15px}
   .mood .hi{font-size:14px;color:var(--wine)}
-  .mood-result{margin-top:28px;background:#fffdf8;border:1px solid var(--line);border-radius:4px;overflow:hidden;display:none}
+  .mood-result{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:none}
   .mood-result.show{display:block;animation:fade .5s ease}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .mr-top{background:var(--ink);color:var(--paper);padding:22px 28px}
@@ -81,14 +94,14 @@
 
   /* 66 Books */
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-  .filters button{background:#fffdf8;border:1px solid var(--line);border-radius:20px;padding:7px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--slate);transition:.2s}
+  .filters button{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:7px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--slate);transition:.2s}
   .filters button:hover{border-color:var(--gold-soft)}
   .filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .search{width:100%;margin:16px 0 4px;padding:13px 18px;border:1px solid var(--line);border-radius:4px;background:#fffdf8;font-family:inherit;font-size:15px;color:var(--ink)}
+  .search{width:100%;margin:16px 0 4px;padding:13px 18px;border:1px solid var(--line);border-radius:4px;background:var(--card);font-family:inherit;font-size:15px;color:var(--ink)}
   .search:focus{outline:none;border-color:var(--gold-soft)}
   .testament-band{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:20px;margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
   .book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-  .bcard{background:#fffdf8;border:1px solid var(--line);border-radius:4px;padding:18px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;animation:rise .5s ease both}
+  .bcard{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;animation:rise .5s ease both}
   @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
   .bcard::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--ot);opacity:.6;transition:.2s}
   .bcard.nt::before{background:var(--nt)}
@@ -117,7 +130,7 @@
   .saved-row{margin:14px 0 4px}
   .saved-row .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
   .saved-chips{display:flex;flex-wrap:wrap;gap:8px}
-  .saved-chip{background:#fffdf8;border:1px solid var(--gold-soft);border-radius:18px;padding:6px 14px;font-size:13px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:6px}
+  .saved-chip{background:var(--card);border:1px solid var(--gold-soft);border-radius:18px;padding:6px 14px;font-size:13px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:6px}
   .saved-chip:hover{background:var(--paper-deep)}
   .saved-chip .x{color:var(--slate);font-size:12px;opacity:.6}
   .saved-empty{color:var(--slate);font-size:13px;font-style:italic}
@@ -130,7 +143,7 @@
   .modal-body .lesson::before{content:"✦";position:absolute;left:0;color:var(--gold-soft);font-size:11px;top:3px}
   .modal-body .lesson .hindi{display:block;color:var(--wine);font-size:14px}
   .modal-mark{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
-  .modal-mark button{border:1px solid var(--line);background:#fffdf8;border-radius:22px;padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:.2s;color:var(--slate)}
+  .modal-mark button{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:.2s;color:var(--slate)}
   .modal-mark button:hover{border-color:var(--gold-soft)}
   .modal-mark button.active{background:var(--ink);color:var(--cream,#f7f3ea);border-color:var(--ink)}
 
@@ -155,12 +168,98 @@
 
   /* Spirit */
   .spirit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .gift{background:#fffdf8;border:1px solid var(--line);border-radius:4px;padding:24px;transition:.2s}
-  .gift:hover{transform:translateY(-3px);box-shadow:0 14px 30px -20px var(--shadow)}
-  .gift .ico{font-size:24px;margin-bottom:12px}
-  .gift h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600}
-  .gift .h3hi{color:var(--wine);font-size:16px;margin-bottom:10px}
-  .gift p{color:var(--slate);font-size:14px}
+  .gift{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;transition:.25s;cursor:pointer;position:relative;overflow:hidden}
+  .gift:hover{transform:translateY(-3px);box-shadow:0 14px 30px -20px var(--shadow);border-color:var(--gold-soft)}
+  .gift.done{border-color:var(--gold-soft);background:linear-gradient(160deg,var(--card),#f6efdd)}
+  .gift.done::after{content:"✓";position:absolute;top:16px;right:18px;color:var(--gold);font-weight:700;font-size:16px}
+  .gift .top-row{display:flex;align-items:center;gap:12px}
+  .gift .ico{font-size:26px}
+  .gift .titles h3{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;line-height:1}
+  .gift .titles .h3hi{color:var(--wine);font-size:15px}
+  .gift .tease{color:var(--slate);font-size:13.5px;margin-top:12px;line-height:1.5}
+  .gift .tapcue{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:14px;opacity:.8;transition:.2s}
+  .gift.open .tapcue{opacity:0;height:0;margin:0}
+  .gift .detail{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
+  .gift.open .detail{max-height:420px;opacity:1;margin-top:16px}
+  .gift .detail .ref{display:inline-block;font-size:11px;letter-spacing:.06em;font-weight:600;color:var(--gold);background:var(--paper-deep);padding:4px 10px;border-radius:12px;margin-bottom:12px}
+  .gift .detail .reflect{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.5;font-style:italic}
+  .gift .detail .reflect-hi{color:var(--wine);font-size:14px;line-height:1.6;margin-top:8px}
+  .gift .practice{margin-top:16px;padding:14px;background:var(--paper-deep);border-radius:6px}
+  .gift .practice .plabel{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .gift .practice .ptext{font-size:13.5px;line-height:1.5}
+  .gift .practice .ptext-hi{color:var(--wine);font-size:12.5px;margin-top:4px;line-height:1.5}
+  .gift .check-btn{margin-top:12px;width:100%;border:1px solid var(--gold-soft);background:none;color:var(--gold);border-radius:20px;padding:9px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s}
+  .gift .check-btn:hover{background:var(--gold-soft);color:#fff}
+  .gift.done .check-btn{background:var(--gold);color:#fff;border-color:var(--gold)}
+  /* focus fruit banner */
+  .fruit-focus{background:linear-gradient(150deg,var(--ink),#33302a);color:var(--paper);border-radius:8px;padding:22px 26px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .fruit-focus .fico{font-size:40px}
+  .fruit-focus .ftxt{flex:1;min-width:200px}
+  .fruit-focus .flabel{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:4px}
+  .fruit-focus .fname{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1}
+  .fruit-focus .fname-hi{color:var(--gold-soft);font-size:17px}
+  .fruit-focus .fdesc{font-size:13px;opacity:.85;margin-top:6px}
+  .fruit-count{font-size:12px;color:var(--slate);margin:4px 0 16px;letter-spacing:.04em}
+
+  /* streak */
+  .streak{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--gold);margin-bottom:18px}
+  .streak .flame{font-size:16px}
+  /* nav gear */
+  .nav-gear{font-size:16px!important}
+  /* settings panel */
+  .settings{position:fixed;top:58px;right:16px;z-index:40;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 20px 50px -20px var(--shadow);padding:18px;width:240px;display:none}
+  .settings.open{display:block;animation:fade .25s ease}
+  .settings .srow{margin-bottom:16px}
+  .settings .srow:last-child{margin-bottom:0}
+  .settings .slabel{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .settings .seg{display:flex;gap:6px}
+  .settings .seg button{flex:1;border:1px solid var(--line);background:none;color:var(--slate);border-radius:8px;padding:8px;font-family:inherit;font-size:13px;cursor:pointer;transition:.2s}
+  .settings .seg button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  /* reading plan */
+  .plan-progress{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+  .plan-bar{flex:1;min-width:180px;height:10px;background:var(--paper-deep);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+  .plan-fill{height:100%;background:linear-gradient(90deg,var(--gold-soft),var(--gold));width:0;transition:width .6s ease}
+  .plan-txt{font-size:13px;color:var(--slate);font-weight:500}
+  .plan-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .plan-day{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;cursor:pointer;transition:.2s}
+  .plan-day:hover{border-color:var(--gold-soft)}
+  .plan-day.done{background:linear-gradient(160deg,var(--card),var(--paper-deep))}
+  .plan-day .dnum{width:34px;height:34px;border-radius:50%;background:var(--paper-deep);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--gold);flex-shrink:0;font-size:15px}
+  .plan-day.done .dnum{background:var(--gold);color:#fff}
+  .plan-day .dinfo{flex:1}
+  .plan-day .dbook{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;line-height:1.1}
+  .plan-day .dchap{font-size:12px;color:var(--slate)}
+  .plan-day .dcheck{font-size:18px;color:var(--gold);opacity:.3;transition:.2s}
+  .plan-day.done .dcheck{opacity:1}
+  /* memory */
+  .mem-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:32px;text-align:center;max-width:620px;margin:0 auto}
+  .mem-ref{font-size:12px;letter-spacing:.1em;font-weight:600;color:var(--gold);margin-bottom:18px}
+  .mem-verse{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.2vw,30px);line-height:1.45;font-weight:500}
+  .mem-verse-hi{font-size:clamp(18px,2.6vw,22px);color:var(--wine);margin-top:14px;line-height:1.6}
+  .mem-verse .w,.mem-verse-hi .w{cursor:pointer;transition:.15s;border-radius:4px;padding:0 2px}
+  .mem-verse .w:hover,.mem-verse-hi .w:hover{background:var(--paper-deep)}
+  .mem-verse .w.hidden,.mem-verse-hi .w.hidden{background:var(--gold-soft);color:transparent;border-radius:4px;user-select:none}
+  .mem-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .mem-btn{background:var(--ink);color:var(--paper);border:none;border-radius:22px;padding:10px 20px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+  .mem-btn:hover{background:var(--wine)}
+  .mem-btn.ghost{background:none;color:var(--slate);border:1px solid var(--line)}
+  .mem-btn.ghost:hover{background:var(--paper-deep);color:var(--ink)}
+  /* kids */
+  .kids-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .kid{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+  .kid:hover{transform:translateY(-3px);box-shadow:0 16px 34px -20px var(--shadow);border-color:var(--gold-soft)}
+  .kid .kico{font-size:38px;margin-bottom:10px}
+  .kid h3{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;line-height:1}
+  .kid .khi{color:var(--wine);font-size:15px;margin-bottom:6px}
+  .kid .ktap{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-top:8px}
+  .kid.open .ktap{display:none}
+  .kid .kstory{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .3s;opacity:0;font-size:15px;line-height:1.6;color:var(--slate)}
+  .kid.open .kstory{max-height:600px;opacity:1;margin-top:14px}
+  .kid .kstory-hi{color:var(--wine);margin-top:10px}
+  .kid .klesson{margin-top:14px;padding:12px;background:var(--paper-deep);border-radius:6px;font-size:13px;font-weight:600}
+  .kid .klesson .lhi{color:var(--wine);font-weight:400;margin-top:3px}
+  .kid .kshare{margin-top:14px;background:none;border:1px solid var(--line);border-radius:18px;padding:7px 14px;font-size:12px;color:var(--slate);cursor:pointer;font-family:inherit;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+  .kid .kshare:hover{border-color:#1faa52;color:#1faa52}
 
   footer{text-align:center;padding:48px 24px 64px;color:var(--slate)}
   footer .om{color:var(--gold-soft);font-size:18px;margin-bottom:12px}
@@ -181,7 +280,7 @@
 
   /* Prayers */
   .prayer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-  .prayer{background:#fffdf8;border:1px solid var(--line);border-radius:6px;padding:26px;position:relative;overflow:hidden;transition:.2s}
+  .prayer{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:26px;position:relative;overflow:hidden;transition:.2s}
   .prayer::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(var(--gold-soft),var(--wine))}
   .prayer:hover{transform:translateY(-3px);box-shadow:0 16px 34px -20px var(--shadow)}
   .prayer .when{display:flex;align-items:center;gap:10px;margin-bottom:14px}
@@ -207,12 +306,23 @@
 <nav>
   <div class="navinner">
     <button data-go="today" class="on">Today</button>
+    <button data-go="plan">Reading Plan</button>
     <button data-go="mood">By Mood</button>
     <button data-go="books66">66 Books</button>
     <button data-go="spirit">Holy Spirit</button>
     <button data-go="prayers">Prayers</button>
+    <button data-go="memory">Memorize</button>
+    <button data-go="kids">Kids</button>
+    <button class="nav-gear" id="nav-gear" title="Settings · सेटिंग्स">⚙</button>
   </div>
 </nav>
+
+<div class="settings" id="settings">
+  <div class="srow"><div class="slabel">Theme · थीम</div>
+    <div class="seg" id="seg-theme"><button data-theme="light" class="on">☀ Light</button><button data-theme="dark">🌙 Dark</button></div></div>
+  <div class="srow"><div class="slabel">Text size · अक्षर आकार</div>
+    <div class="seg" id="seg-font"><button data-fs="0.9">A−</button><button data-fs="1" class="on">A</button><button data-fs="1.15">A+</button><button data-fs="1.3">A++</button></div></div>
+</div>
 
 <main class="wrap">
 
@@ -220,6 +330,7 @@
   <section id="today">
     <div class="sec-head"><div class="sec-num">i</div><h2>Thought for the Day</h2>
       <p>One verse for today — the same for everyone, refreshed each morning. <span class="hindi">आज का विचार — हर दिन एक नया।</span></p></div>
+    <div class="streak" id="streak"></div>
     <div class="daily">
       <div class="daily-date" id="d-date"></div>
       <div class="label">Word of the Day · आज का वचन</div>
@@ -231,14 +342,27 @@
         <p class="hindi" id="d-reflect-hi" style="color:var(--wine);margin-top:6px"></p></div>
       <div class="daily-actions">
         <button class="share-btn" id="d-share"><svg class="wa-ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.523 5.26l-.999 3.648 3.535-.927zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg><span>Share on WhatsApp · व्हाट्सएप पर भेजें</span></button>
+        <button class="refresh ghost" id="d-speak">🔊 Listen · सुनें</button>
         <button class="refresh ghost" id="d-refresh">See another · दूसरा देखें</button>
       </div>
     </div>
   </section>
 
+  <!-- READING PLAN -->
+  <section id="plan" class="collapsible closed">
+    <div class="sec-head"><div class="sec-num">ii</div><h2>30-Day Reading Plan</h2>
+      <p>A guided path through the Bible's great moments, one day at a time. <span class="hindi">30 दिन की पठन योजना।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body">
+      <div class="plan-progress"><div class="plan-bar"><div class="plan-fill" id="plan-fill"></div></div>
+        <div class="plan-txt" id="plan-txt">0 of 30 days</div>
+        <button class="progress-reset" id="plan-reset">Reset · रीसेट</button></div>
+      <div class="plan-list" id="plan-list"></div>
+    </div>
+  </section>
+
   <!-- MOOD -->
   <section id="mood" class="collapsible closed">
-    <div class="sec-head"><div class="sec-num">ii</div><h2>How is your heart today?</h2>
+    <div class="sec-head"><div class="sec-num">iii</div><h2>How is your heart today?</h2>
       <p>Choose what you feel. Receive a chapter to read and a word to hold. <span class="hindi">अपना मन चुनिए।</span></p><span class="chev">⌄</span></div>
     <div class="sec-body">
     <div class="moods" id="mood-grid"></div>
@@ -255,7 +379,7 @@
 
   <!-- 66 BOOKS -->
   <section id="books66" class="collapsible closed">
-    <div class="sec-head"><div class="sec-num">iii</div><h2>The 66 Books</h2>
+    <div class="sec-head"><div class="sec-num">iv</div><h2>The 66 Books</h2>
       <p>Every book in brief — its story, key people, and life lessons in English and Hindi. Tap to open; mark as read or save a favorite. <span class="hindi">बाइबल की सभी 66 पुस्तकें — पढ़ी हुई चिह्नित करें या सहेजें।</span></p><span class="chev">⌄</span></div>
     <div class="sec-body">
     <div class="progress-wrap">
@@ -275,16 +399,44 @@
 
   <!-- SPIRIT -->
   <section id="spirit" class="collapsible closed">
-    <div class="sec-head"><div class="sec-num">iv</div><h2>Guidance of the Holy Spirit</h2>
+    <div class="sec-head"><div class="sec-num">v</div><h2>Guidance of the Holy Spirit</h2>
       <p>Nine fruits to grow, and how to walk by them daily. <span class="hindi">पवित्र आत्मा का मार्गदर्शन।</span></p><span class="chev">⌄</span></div>
-    <div class="sec-body"><div class="spirit-grid" id="spirit-grid"></div></div>
+    <div class="sec-body">
+      <div class="fruit-focus" id="fruit-focus"></div>
+      <div class="spirit-grid" id="spirit-grid"></div>
+    </div>
   </section>
 
   <!-- PRAYERS -->
-  <section id="prayers" class="collapsible closed" style="border-bottom:none">
-    <div class="sec-head"><div class="sec-num">v</div><h2>Prayers for the Day</h2>
+  <section id="prayers" class="collapsible closed">
+    <div class="sec-head"><div class="sec-num">vi</div><h2>Prayers for the Day</h2>
       <p>A few prayers to say together — at waking, at meals, and at rest. <span class="hindi">दिन भर के लिए कुछ प्रार्थनाएँ।</span></p><span class="chev">⌄</span></div>
     <div class="sec-body"><div class="prayer-grid" id="prayer-grid"></div></div>
+  </section>
+
+  <!-- MEMORY -->
+  <section id="memory" class="collapsible closed">
+    <div class="sec-head"><div class="sec-num">vii</div><h2>Memorize a Verse</h2>
+      <p>Learn a verse by heart — tap words to hide them, then recall the rest. <span class="hindi">एक वचन कंठस्थ करें।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body">
+      <div class="mem-card">
+        <div class="mem-ref" id="mem-ref"></div>
+        <div class="mem-verse" id="mem-verse"></div>
+        <div class="mem-verse-hi hindi" id="mem-verse-hi"></div>
+        <div class="mem-actions">
+          <button class="mem-btn" id="mem-hide">Hide a word · एक शब्द छिपाएँ</button>
+          <button class="mem-btn ghost" id="mem-reset">Show all · सब दिखाएँ</button>
+          <button class="mem-btn ghost" id="mem-next">Next verse · अगला वचन</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KIDS -->
+  <section id="kids" class="collapsible closed" style="border-bottom:none">
+    <div class="sec-head"><div class="sec-num">viii</div><h2>Kids' Corner</h2>
+      <p>The big Bible stories, told simply for little ones — in English and Hindi. <span class="hindi">बच्चों के लिए बाइबल की कहानियाँ।</span></p><span class="chev">⌄</span></div>
+    <div class="sec-body"><div class="kids-grid" id="kids-grid"></div></div>
   </section>
 
 </main>
@@ -681,7 +833,22 @@ const daily=[
  {v:"I can do all things through Christ who strengthens me.",hi:"जो मुझे सामर्थ्य देता है उसमें मैं सब कुछ कर सकता हूँ।",ref:"Philippians 4:13",r:"Strength is borrowed, not summoned. Begin the hard task and let grace meet you.",rhi:"सामर्थ्य उधार ली जाती है। कठिन कार्य आरंभ करो और अनुग्रह तुमसे मिलेगा।"},
  {v:"Cast all your anxiety on Him because He cares for you.",hi:"अपनी सारी चिन्ता उस पर डाल दो, क्योंकि उसको तुम्हारा ध्यान है।",ref:"1 Peter 5:7",r:"Worry held alone grows heavy. Write down one fear and release it in prayer.",rhi:"अकेले उठाई चिन्ता भारी हो जाती है। एक भय लिखो और उसे प्रार्थना में छोड़ दो।"},
  {v:"Weeping may stay for the night, but joy comes in the morning.",hi:"साँझ को रोना पड़ता है पर भोर को आनन्द होता है।",ref:"Psalm 30:5",r:"Grief is a guest, not a resident. Let yourself feel it, and wait for the light.",rhi:"दुःख अतिथि है, निवासी नहीं। उसे महसूस होने दो, और प्रकाश की प्रतीक्षा करो।"},
- {v:"Trust in the Lord with all your heart.",hi:"सम्पूर्ण मन से यहोवा पर भरोसा रख।",ref:"Proverbs 3:5",r:"Trust is acting before you see the whole path. Take one step in faith today.",rhi:"भरोसा पूरा मार्ग देखे बिना कार्य करना है। आज विश्वास में एक कदम बढ़ाओ।"}
+ {v:"Trust in the Lord with all your heart.",hi:"सम्पूर्ण मन से यहोवा पर भरोसा रख।",ref:"Proverbs 3:5",r:"Trust is acting before you see the whole path. Take one step in faith today.",rhi:"भरोसा पूरा मार्ग देखे बिना कार्य करना है। आज विश्वास में एक कदम बढ़ाओ।"},
+ {v:"The Lord is my light and my salvation; whom shall I fear?",hi:"यहोवा मेरी ज्योति और मेरा उद्धार है, मैं किस से डरूँ?",ref:"Psalm 27:1",r:"Fear shrinks when you remember who walks with you. Name one fear and hand it over.",rhi:"जब तुम याद करते हो कि कौन तुम्हारे साथ चलता है, भय घट जाता है। एक भय बताओ और सौंप दो।"},
+ {v:"Come to me, all who are weary, and I will give you rest.",hi:"हे सब थके हुओ, मेरे पास आओ, मैं तुम्हें विश्राम दूँगा।",ref:"Matthew 11:28",r:"You don't have to carry it alone. Set one burden down in His presence today.",rhi:"तुम्हें इसे अकेले उठाने की ज़रूरत नहीं। आज एक बोझ उसकी उपस्थिति में रख दो।"},
+ {v:"Give thanks to the Lord, for He is good.",hi:"यहोवा का धन्यवाद करो, क्योंकि वह भला है।",ref:"Psalm 107:1",r:"Gratitude reshapes a heavy day. Name three good things before you sleep tonight.",rhi:"कृतज्ञता भारी दिन को बदल देती है। आज सोने से पहले तीन भली बातें गिनो।"},
+ {v:"Be strong and courageous. Do not be afraid; the Lord is with you.",hi:"हियाव बाँध और दृढ़ हो। मत डर, क्योंकि यहोवा तेरे संग है।",ref:"Joshua 1:9",r:"Courage is fear that has prayed. Take the step you've been avoiding.",rhi:"साहस वह भय है जिसने प्रार्थना की है। वह कदम उठाओ जिसे तुम टाल रहे थे।"},
+ {v:"A new commandment I give you: love one another.",hi:"मैं तुम्हें एक नई आज्ञा देता हूँ, कि एक-दूसरे से प्रेम रखो।",ref:"John 13:34",r:"Love is shown, not just felt. Reach out to one person you've drifted from.",rhi:"प्रेम दिखाया जाता है, केवल महसूस नहीं। किसी एक से संपर्क करो जिससे तुम दूर हो गए।"},
+ {v:"The Lord is near to all who call on Him.",hi:"यहोवा उन सबके निकट है जो उसे पुकारते हैं।",ref:"Psalm 145:18",r:"You are never out of reach. Say a short, honest prayer right now.",rhi:"तुम कभी पहुँच से बाहर नहीं। अभी एक छोटी, सच्ची प्रार्थना करो।"},
+ {v:"Let your light shine before others.",hi:"तुम्हारा उजियाला मनुष्यों के सामने चमके।",ref:"Matthew 5:16",r:"Your small goodness is seen. Do one kind thing in the open today.",rhi:"तुम्हारी छोटी भलाई देखी जाती है। आज एक भला काम सबके सामने करो।"},
+ {v:"His mercies are new every morning.",hi:"उसकी करुणा प्रति भोर नई होती है।",ref:"Lamentations 3:23",r:"Yesterday's failures don't define today. Begin again with a clean heart.",rhi:"कल की असफलताएँ आज को तय नहीं करतीं। साफ़ हृदय से फिर आरंभ करो।"},
+ {v:"Do to others as you would have them do to you.",hi:"जैसा तुम चाहते हो कि लोग तुम्हारे साथ करें, वैसा ही उनके साथ करो।",ref:"Luke 6:31",r:"Kindness begins with imagination. Picture someone's need and meet it.",rhi:"दया कल्पना से आरंभ होती है। किसी की आवश्यकता सोचो और पूरी करो।"},
+ {v:"Wait for the Lord; be strong and take heart.",hi:"यहोवा की बाट जोहता रह; हियाव बाँध और दृढ़ हो।",ref:"Psalm 27:14",r:"Waiting is not wasted time. Trust that something is growing unseen.",rhi:"प्रतीक्षा व्यर्थ समय नहीं। भरोसा रख कि कुछ अनदेखा बढ़ रहा है।"},
+ {v:"Blessed are the peacemakers.",hi:"धन्य हैं वे जो मेल कराते हैं।",ref:"Matthew 5:9",r:"Peace often costs you the last word. Let one argument go today.",rhi:"शांति अक्सर तुमसे अंतिम शब्द की कीमत लेती है। आज एक बहस को जाने दो।"},
+ {v:"The joy of the Lord is your strength.",hi:"यहोवा का आनन्द तुम्हारा बल है।",ref:"Nehemiah 8:10",r:"Joy is fuel, not just feeling. Let one good memory lift you today.",rhi:"आनन्द ईंधन है, केवल भावना नहीं। आज एक अच्छी स्मृति तुम्हें उठाए।"},
+ {v:"He heals the brokenhearted and binds up their wounds.",hi:"वह टूटे मन वालों को चंगा करता और उनके घावों को बाँधता है।",ref:"Psalm 147:3",r:"Healing is slow but sure. Bring one hurt honestly to God today.",rhi:"चंगाई धीमी पर निश्चित है। आज एक पीड़ा ईमानदारी से परमेश्वर के पास ला।"},
+ {v:"Whatever you do, do it all for the glory of God.",hi:"जो कुछ करो, सब परमेश्वर की महिमा के लिए करो।",ref:"1 Corinthians 10:31",r:"Ordinary work becomes worship. Do one small task today with full heart.",rhi:"साधारण काम आराधना बन जाता है। आज एक छोटा काम पूरे मन से करो।"},
+ {v:"Let us not grow weary in doing good.",hi:"भला करने में हियाव न छोड़ें।",ref:"Galatians 6:9",r:"Faithfulness is repeating the good even when it's unseen. Keep going.",rhi:"विश्वासयोग्यता भले को दोहराना है, चाहे अनदेखा हो। लगे रहो।"}
 ];
 const moods=[
  {emoji:"😟",en:"Anxious",hi:"चिंतित",feel:"When worry tightens its grip",feelhi:"जब चिंता घेर ले",read:"Philippians 4:6–7",word:"Peace · शांति",quote:"Do not be anxious about anything, but in every situation, by prayer, present your requests to God.",quotehi:"किसी भी बात की चिन्ता मत करो, परन्तु हर एक बात में प्रार्थना के द्वारा अपनी विनती परमेश्वर के सामने रखो।"},
@@ -698,15 +865,51 @@ const moods=[
  {emoji:"✨",en:"Inspired",hi:"प्रेरित",feel:"When you long to begin",feelhi:"जब कुछ शुरू करने का मन हो",read:"Colossians 3:23",word:"Purpose · उद्देश्य",quote:"Whatever you do, work at it with all your heart, as working for the Lord.",quotehi:"जो कुछ भी करो, तन-मन से करो, मानो प्रभु के लिए करते हो।"}
 ];
 const fruits=[
- {ico:"❤️",en:"Love",hi:"प्रेम",d:"Choosing another's good before your own comfort. Practice it in one small, costly act today."},
- {ico:"😊",en:"Joy",hi:"आनंद",d:"A gladness deeper than mood, rooted in being held. Notice one gift you'd usually overlook."},
- {ico:"🕊️",en:"Peace",hi:"शांति",d:"Calm that doesn't depend on calm circumstances. Bring one worry into prayer and leave it there."},
- {ico:"⏳",en:"Patience",hi:"धीरज",d:"Staying gentle while you wait. Let one delay today go unanswered by frustration."},
- {ico:"🤲",en:"Kindness",hi:"कृपा",d:"Active goodwill that acts. Do one unprompted kindness with no audience."},
- {ico:"🌾",en:"Goodness",hi:"भलाई",d:"Integrity when no one checks. Keep one small promise precisely."},
- {ico:"🛡️",en:"Faithfulness",hi:"विश्वासयोग्यता",d:"Showing up steadily over time. Be reliable in one ordinary duty."},
- {ico:"🌿",en:"Gentleness",hi:"नम्रता",d:"Strength held under control. Soften your tone in one hard conversation."},
- {ico:"⚖️",en:"Self-control",hi:"संयम",d:"Saying no to lead yourself well. Pause before one reaction today."}
+ {ico:"❤️",en:"Love",hi:"प्रेम",d:"Choosing another's good before your own comfort.",
+  ref:"1 Corinthians 13:4–7",
+  reflect:"Love is not mainly a feeling but a choice you make again and again — patient, kind, and unselfish even when it costs you.",
+  reflecthi:"प्रेम मुख्यतः कोई भावना नहीं, पर एक चुनाव है जो तुम बार-बार करते हो — धीरजवन्त, कृपालु, और निःस्वार्थ, चाहे इसकी कीमत चुकानी पड़े।",
+  task:"Do one small, costly act of love for someone today.",taskhi:"आज किसी के लिए प्रेम का एक छोटा, त्यागपूर्ण कार्य करो।"},
+ {ico:"😊",en:"Joy",hi:"आनंद",d:"A gladness deeper than mood, rooted in being held.",
+  ref:"Philippians 4:4",
+  reflect:"Joy isn't pretending all is well; it's a deep gladness that holds even on hard days because you are held by God.",
+  reflecthi:"आनंद यह दिखावा नहीं कि सब ठीक है; यह एक गहरी प्रसन्नता है जो कठिन दिनों में भी टिकती है क्योंकि परमेश्वर तुम्हें थामे है।",
+  task:"Notice and name one gift you'd usually overlook.",taskhi:"एक ऐसे उपहार को पहचानो और नाम दो जिसे तुम आमतौर पर अनदेखा करते हो।"},
+ {ico:"🕊️",en:"Peace",hi:"शांति",d:"Calm that doesn't depend on calm circumstances.",
+  ref:"John 14:27",
+  reflect:"Peace is not the absence of trouble but the presence of trust — a quiet that holds steady when life around you doesn't.",
+  reflecthi:"शांति परेशानी का अभाव नहीं, पर भरोसे की उपस्थिति है — एक शांति जो तब भी स्थिर रहती है जब चारों ओर का जीवन नहीं।",
+  task:"Bring one worry into prayer and leave it there.",taskhi:"एक चिंता को प्रार्थना में लाकर वहीं छोड़ दो।"},
+ {ico:"⏳",en:"Patience",hi:"धीरज",d:"Staying gentle while you wait.",
+  ref:"James 1:3–4",
+  reflect:"Patience grows in the waiting. Each delay is a chance to practice trust instead of frustration.",
+  reflecthi:"धीरज प्रतीक्षा में बढ़ता है। हर देरी झुंझलाहट के बजाय भरोसे का अभ्यास करने का अवसर है।",
+  task:"Let one delay today go without complaint.",taskhi:"आज एक देरी को बिना शिकायत के जाने दो।"},
+ {ico:"🤲",en:"Kindness",hi:"कृपा",d:"Active goodwill that acts.",
+  ref:"Ephesians 4:32",
+  reflect:"Kindness is goodwill with hands and feet — it doesn't just wish someone well, it does something about it.",
+  reflecthi:"कृपा हाथ-पाँव वाली सद्भावना है — यह केवल किसी की भलाई नहीं चाहती, पर उसके लिए कुछ करती है।",
+  task:"Do one unprompted kindness with no audience.",taskhi:"बिना किसी के देखे एक अनचाही दया करो।"},
+ {ico:"🌾",en:"Goodness",hi:"भलाई",d:"Integrity when no one is watching.",
+  ref:"Galatians 6:9",
+  reflect:"Goodness is who you are when no one checks — keeping small promises and doing right quietly.",
+  reflecthi:"भलाई वह है जो तुम तब हो जब कोई नहीं देखता — छोटे वचन निभाना और चुपचाप सही करना।",
+  task:"Keep one small promise precisely today.",taskhi:"आज एक छोटा वचन ठीक-ठीक निभाओ।"},
+ {ico:"🛡️",en:"Faithfulness",hi:"विश्वासयोग्यता",d:"Showing up steadily over time.",
+  ref:"Lamentations 3:22–23",
+  reflect:"Faithfulness is steadiness — being reliable in the ordinary, unseen duties, day after day.",
+  reflecthi:"विश्वासयोग्यता स्थिरता है — साधारण, अनदेखे कर्तव्यों में दिन-प्रतिदिन भरोसेमंद रहना।",
+  task:"Be reliable in one ordinary duty you'd rather skip.",taskhi:"एक साधारण कर्तव्य में भरोसेमंद रहो जिसे तुम टालना चाहोगे।"},
+ {ico:"🌿",en:"Gentleness",hi:"नम्रता",d:"Strength held under control.",
+  ref:"Philippians 4:5",
+  reflect:"Gentleness is strength with a soft touch — power that chooses tenderness instead of force.",
+  reflecthi:"नम्रता कोमल स्पर्श वाली शक्ति है — सामर्थ्य जो बल के बजाय कोमलता चुनती है।",
+  task:"Soften your tone in one hard conversation.",taskhi:"एक कठिन बातचीत में अपना स्वर नरम करो।"},
+ {ico:"⚖️",en:"Self-control",hi:"संयम",d:"Saying no to lead yourself well.",
+  ref:"Proverbs 25:28",
+  reflect:"Self-control is the quiet power to pause — to lead yourself rather than be led by every impulse.",
+  reflecthi:"संयम रुकने की शांत शक्ति है — हर आवेग के पीछे चलने के बजाय स्वयं की अगुवाई करना।",
+  task:"Pause before one reaction today.",taskhi:"आज एक प्रतिक्रिया से पहले रुको।"}
 ];
 const prayers=[
  {ic:"🌅",when:"Morning",whenhi:"प्रातःकाल",
@@ -727,6 +930,58 @@ const prayers=[
  {ic:"🌙",when:"At Night",whenhi:"रात्रि में",
   en:"Lord, as this day ends, I thank You for Your faithfulness through it. Forgive where I failed, quiet my heart, and give me rest under Your care.",
   hi:"प्रभु, जैसे यह दिन समाप्त होता है, इसमें तेरी विश्वासयोग्यता के लिए धन्यवाद। जहाँ मैं चूका क्षमा कर, मेरे मन को शांत कर, और तेरी देखरेख में मुझे विश्राम दे।"}
+];
+const kids=[
+ {ico:"🌈",en:"Noah's Ark",hi:"नूह का जहाज़",
+  story:"Long ago, people had become very unkind. But Noah loved God. God told Noah to build a big boat and bring two of every animal. Then it rained for forty days! Noah, his family, and all the animals stayed safe inside. When the rain stopped, God put a rainbow in the sky as a promise to always care for the world.",
+  storyhi:"बहुत समय पहले लोग बहुत निर्दयी हो गए थे। पर नूह परमेश्वर से प्रेम करता था। परमेश्वर ने नूह से एक बड़ा जहाज़ बनाने और हर पशु के दो लाने को कहा। फिर चालीस दिन वर्षा हुई! नूह, उसका परिवार और सब पशु अंदर सुरक्षित रहे। जब वर्षा रुकी, परमेश्वर ने आकाश में एक मेघधनुष रखा, यह प्रतिज्ञा कि वह सदा संसार की देखभाल करेगा।",
+  lesson:"God keeps His promises.",lessonhi:"परमेश्वर अपनी प्रतिज्ञाएँ निभाता है।"},
+ {ico:"🪨",en:"David & Goliath",hi:"दाऊद और गोलियत",
+  story:"A giant soldier named Goliath frightened everyone. But a young shepherd boy named David was not afraid, because he trusted God. With just a sling and a small stone, brave David defeated the giant. It showed everyone that God makes the small and humble strong.",
+  storyhi:"गोलियत नामक एक विशाल सैनिक सबको डराता था। पर दाऊद नामक एक जवान चरवाहा नहीं डरा, क्योंकि वह परमेश्वर पर भरोसा करता था। केवल एक गोफन और एक छोटे पत्थर से बहादुर दाऊद ने उस दानव को हरा दिया। इसने सबको दिखाया कि परमेश्वर छोटे और नम्र को बलवान बनाता है।",
+  lesson:"With God, even the small can be brave.",lessonhi:"परमेश्वर के साथ, छोटे भी बहादुर हो सकते हैं।"},
+ {ico:"🐋",en:"Jonah & the Whale",hi:"योना और मछली",
+  story:"God asked Jonah to go to a city called Nineveh, but Jonah ran the other way on a ship! A storm came, and Jonah was swallowed by a giant fish. For three days he prayed inside it. The fish let him out, and this time Jonah obeyed. God's love reaches everyone, even when we run away.",
+  storyhi:"परमेश्वर ने योना से नीनवे नगर जाने को कहा, पर योना जहाज़ पर दूसरी ओर भाग गया! एक तूफ़ान आया, और योना एक बड़ी मछली ने निगल लिया। तीन दिन उसने उसके अंदर प्रार्थना की। मछली ने उसे बाहर निकाला, और इस बार योना ने आज्ञा मानी। परमेश्वर का प्रेम सबको मिलता है, तब भी जब हम भाग जाते हैं।",
+  lesson:"It's always best to obey God.",lessonhi:"परमेश्वर की आज्ञा मानना सदा सबसे अच्छा है।"},
+ {ico:"⭐",en:"The First Christmas",hi:"पहला क्रिसमस",
+  story:"In a little town called Bethlehem, baby Jesus was born in a stable, because there was no room at the inn. Angels sang to shepherds in the fields, and a bright star led wise men to bring Him gifts. It was the night God's greatest gift came to the world.",
+  storyhi:"बेतलेहेम नामक एक छोटे नगर में, शिशु यीशु एक गौशाला में जन्मा, क्योंकि सराय में जगह नहीं थी। स्वर्गदूतों ने खेतों में चरवाहों के लिए गीत गाए, और एक चमकीले तारे ने ज्ञानियों को उसके लिए उपहार लाने की अगुवाई की। यह वह रात थी जब परमेश्वर का सबसे बड़ा उपहार संसार में आया।",
+  lesson:"Jesus is God's gift of love to us.",lessonhi:"यीशु हमारे लिए परमेश्वर का प्रेम-उपहार है।"},
+ {ico:"🌅",en:"The First Easter",hi:"पहला ईस्टर",
+  story:"Jesus was put on a cross and died, and His friends were very sad. He was laid in a tomb with a big stone in front. But on Sunday morning, the stone was rolled away — Jesus was alive again! He had risen, just as He promised. Sadness turned into the greatest joy.",
+  storyhi:"यीशु को क्रूस पर चढ़ाया गया और वह मर गया, और उसके मित्र बहुत दुखी थे। उसे एक कब्र में रखा गया जिसके आगे एक बड़ा पत्थर था। पर रविवार की भोर, पत्थर लुढ़का दिया गया — यीशु फिर जीवित था! वह जी उठा, ठीक जैसे उसने प्रतिज्ञा की थी। दुःख सबसे बड़े आनन्द में बदल गया।",
+  lesson:"Jesus is alive, and He gives us hope.",lessonhi:"यीशु जीवित है, और वह हमें आशा देता है।"},
+ {ico:"🦁",en:"Daniel & the Lions",hi:"दानिय्येल और सिंह",
+  story:"Daniel loved to pray to God every day. Some jealous men tricked the king into making prayer against the law. Brave Daniel kept praying anyway, so he was thrown into a den of lions! But God shut the lions' mouths, and Daniel was completely safe. The king saw how great God is.",
+  storyhi:"दानिय्येल हर दिन परमेश्वर से प्रार्थना करना पसंद करता था। कुछ ईर्ष्यालु लोगों ने राजा को छल से प्रार्थना को अवैध बनवा दिया। बहादुर दानिय्येल फिर भी प्रार्थना करता रहा, अतः उसे सिंहों की मांद में डाला गया! पर परमेश्वर ने सिंहों के मुँह बंद कर दिए, और दानिय्येल पूरी तरह सुरक्षित रहा। राजा ने देखा कि परमेश्वर कितना महान है।",
+  lesson:"Keep trusting God, no matter what.",lessonhi:"चाहे जो हो, परमेश्वर पर भरोसा रखते रहो।"}
+];
+const memVerses=[
+ {ref:"John 3:16",en:"For God so loved the world that He gave His only Son.",hi:"परमेश्वर ने जगत से ऐसा प्रेम रखा कि उसने अपना एकलौता पुत्र दे दिया।"},
+ {ref:"Psalm 23:1",en:"The Lord is my shepherd; I shall not want.",hi:"यहोवा मेरा चरवाहा है, मुझे कुछ घटी न होगी।"},
+ {ref:"Philippians 4:13",en:"I can do all things through Christ who strengthens me.",hi:"जो मुझे सामर्थ्य देता है उसमें मैं सब कुछ कर सकता हूँ।"},
+ {ref:"Proverbs 3:5",en:"Trust in the Lord with all your heart.",hi:"सम्पूर्ण मन से यहोवा पर भरोसा रख।"},
+ {ref:"Joshua 1:9",en:"Be strong and courageous, for the Lord is with you.",hi:"हियाव बाँध और दृढ़ हो, क्योंकि यहोवा तेरे संग है।"},
+ {ref:"Psalm 46:1",en:"God is our refuge and strength, a very present help.",hi:"परमेश्वर हमारा शरणस्थान और बल है, संकट में अति सहज से मिलने वाला सहायक।"}
+];
+// 30-day reading plan: each day = book + chapters note (uses existing BOOKS)
+const readingPlan=[
+ {d:1,b:"Genesis",c:"1–3 · Creation & the Fall"},{d:2,b:"Genesis",c:"6–9 · Noah & the flood"},
+ {d:3,b:"Genesis",c:"12, 15 · God calls Abraham"},{d:4,b:"Genesis",c:"37, 39–41 · Joseph"},
+ {d:5,b:"Exodus",c:"1–3 · Moses is called"},{d:6,b:"Exodus",c:"12–14 · Passover & the sea"},
+ {d:7,b:"Exodus",c:"20 · The Ten Commandments"},{d:8,b:"Joshua",c:"1, 6 · Entering the land"},
+ {d:9,b:"Ruth",c:"1–4 · Loyalty & redemption"},{d:10,b:"1 Samuel",c:"16–17 · David & Goliath"},
+ {d:11,b:"Psalms",c:"23 · The Lord my shepherd"},{d:12,b:"Psalms",c:"51 · A prayer of repentance"},
+ {d:13,b:"Psalms",c:"139 · Fully known by God"},{d:14,b:"Proverbs",c:"3 · Trust in the Lord"},
+ {d:15,b:"Isaiah",c:"40 · Comfort & strength"},{d:16,b:"Isaiah",c:"53 · The Suffering Servant"},
+ {d:17,b:"Daniel",c:"3, 6 · Faith under pressure"},{d:18,b:"Jonah",c:"1–4 · Mercy for all"},
+ {d:19,b:"Matthew",c:"5–7 · Sermon on the Mount"},{d:20,b:"Luke",c:"15 · Lost & found"},
+ {d:21,b:"John",c:"1 · The Word made flesh"},{d:22,b:"John",c:"3 · Born again"},
+ {d:23,b:"Luke",c:"2 · The birth of Jesus"},{d:24,b:"John",c:"19–20 · Cross & resurrection"},
+ {d:25,b:"Acts",c:"1–2 · The Spirit comes"},{d:26,b:"Romans",c:"8 · No condemnation"},
+ {d:27,b:"1 Corinthians",c:"13 · The way of love"},{d:28,b:"Galatians",c:"5 · Fruit of the Spirit"},
+ {d:29,b:"Philippians",c:"4 · Joy & peace"},{d:30,b:"Revelation",c:"21 · All things new"}
 ];
 
 /* ===== Daily (date-based: same verse for everyone each day) ===== */
@@ -760,6 +1015,105 @@ $('d-share').onclick=()=>{
   const txt=`📖 Word of the Day · आज का वचन\n\n"${d.v}"\n— ${d.ref}\n\n"${d.hi}"\n\n🙏 ${d.r}\n\nLiving Word · जीवित वचन`;
   window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 };
+// Listen (text-to-speech) — reads English then Hindi using browser voices
+function speak(textEn,textHi){
+  if(!('speechSynthesis' in window)){alert('Speech is not supported on this device.');return;}
+  speechSynthesis.cancel();
+  const uEn=new SpeechSynthesisUtterance(textEn);uEn.lang='en-US';uEn.rate=.95;
+  speechSynthesis.speak(uEn);
+  if(textHi){const uHi=new SpeechSynthesisUtterance(textHi);uHi.lang='hi-IN';uHi.rate=.95;speechSynthesis.speak(uHi);}
+}
+$('d-speak').onclick=()=>{const d=daily[dI];speak(d.v+'. '+d.ref,d.hi);};
+
+/* ===== Streak (days the site was opened) ===== */
+(function(){
+  const today=new Date().toISOString().slice(0,10);
+  let last=null,count=0;
+  try{const raw=JSON.parse(localStorage.getItem('lw_streak')||'{}');last=raw.last;count=raw.count||0;}catch(e){}
+  if(last!==today){
+    const y=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    count=(last===y)?count+1:1;
+    try{localStorage.setItem('lw_streak',JSON.stringify({last:today,count}));}catch(e){}
+  }
+  $('streak').innerHTML=`<span class="flame">🔥</span> ${count}-day streak · ${count} दिन की लय`;
+})();
+
+/* ===== Settings: theme + font size ===== */
+(function(){
+  const gear=$('nav-gear'),panel=$('settings');
+  gear.onclick=(e)=>{e.stopPropagation();panel.classList.toggle('open');};
+  document.addEventListener('click',e=>{if(!panel.contains(e.target)&&e.target!==gear)panel.classList.remove('open');});
+  // load saved
+  const savedTheme=localStorage.getItem('lw_theme')||'light';
+  const savedFs=localStorage.getItem('lw_fs')||'1';
+  function applyTheme(t){document.body.classList.toggle('dark',t==='dark');[...$('seg-theme').children].forEach(b=>b.classList.toggle('on',b.dataset.theme===t));localStorage.setItem('lw_theme',t);}
+  function applyFs(f){document.documentElement.style.setProperty('--fs',f);[...$('seg-font').children].forEach(b=>b.classList.toggle('on',b.dataset.fs===f));localStorage.setItem('lw_fs',f);}
+  applyTheme(savedTheme);applyFs(savedFs);
+  $('seg-theme').onclick=e=>{if(e.target.dataset.theme)applyTheme(e.target.dataset.theme);};
+  $('seg-font').onclick=e=>{if(e.target.dataset.fs)applyFs(e.target.dataset.fs);};
+})();
+
+/* ===== Reading Plan ===== */
+(function(){
+  const PLAN_KEY='lw_plan';
+  let done=new Set();try{done=new Set(JSON.parse(localStorage.getItem(PLAN_KEY)||'[]'));}catch(e){}
+  function save(){try{localStorage.setItem(PLAN_KEY,JSON.stringify([...done]));}catch(e){}}
+  function prog(){const n=done.size;$('plan-fill').style.width=Math.round(n/30*100)+'%';$('plan-txt').textContent=`${n} of 30 days · ${n}/30 दिन`;}
+  const list=$('plan-list');
+  function render(){
+    list.innerHTML='';
+    readingPlan.forEach(p=>{
+      const el=document.createElement('div');
+      el.className='plan-day'+(done.has(p.d)?' done':'');
+      el.innerHTML=`<div class="dnum">${p.d}</div><div class="dinfo"><div class="dbook">${p.b}</div><div class="dchap">${p.c}</div></div><div class="dcheck">✓</div>`;
+      el.onclick=()=>{done.has(p.d)?done.delete(p.d):done.add(p.d);save();el.classList.toggle('done',done.has(p.d));prog();};
+      list.appendChild(el);
+    });
+  }
+  $('plan-reset').onclick=()=>{if(confirm('Reset reading plan? · योजना रीसेट करें?')){done=new Set();save();render();prog();}};
+  render();prog();
+})();
+
+/* ===== Memory Verses ===== */
+(function(){
+  let mi=(((dayNumber())%memVerses.length)+memVerses.length)%memVerses.length;
+  function render(){
+    const v=memVerses[mi];
+    $('mem-ref').textContent=v.ref;
+    $('mem-verse').innerHTML=v.en.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ');
+    $('mem-verse-hi').innerHTML=v.hi.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ');
+    document.querySelectorAll('.mem-verse .w, .mem-verse-hi .w').forEach(w=>{
+      w.onclick=()=>w.classList.toggle('hidden');
+    });
+  }
+  $('mem-hide').onclick=()=>{
+    const visible=[...document.querySelectorAll('.mem-verse .w:not(.hidden)')];
+    if(visible.length){visible[Math.floor(Math.random()*visible.length)].classList.add('hidden');}
+  };
+  $('mem-reset').onclick=()=>document.querySelectorAll('.mem-verse .w, .mem-verse-hi .w').forEach(w=>w.classList.remove('hidden'));
+  $('mem-next').onclick=()=>{mi=(mi+1)%memVerses.length;render();};
+  render();
+})();
+
+/* ===== Kids' Corner ===== */
+(function(){
+  const grid=$('kids-grid');
+  kids.forEach(k=>{
+    const el=document.createElement('div');el.className='kid';
+    el.innerHTML=`<div class="kico">${k.ico}</div><h3>${k.en}</h3><div class="khi hindi">${k.hi}</div>
+      <div class="ktap">Tap to read · पढ़ने को दबाएँ</div>
+      <div class="kstory">${k.story}<div class="kstory-hi hindi">${k.storyhi}</div>
+        <div class="klesson">${k.lesson}<div class="lhi hindi">${k.lessonhi}</div></div>
+        <button class="kshare"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg><span>Share · भेजें</span></button>
+      </div>`;
+    el.addEventListener('click',e=>{if(e.target.closest('.kshare'))return;el.classList.toggle('open');});
+    el.querySelector('.kshare').onclick=(e)=>{e.stopPropagation();
+      const txt=`${k.ico} ${k.en} · ${k.hi}\n\n${k.story}\n\n${k.storyhi}\n\n✨ ${k.lesson} · ${k.lessonhi}\n\nLiving Word · जीवित वचन`;
+      window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+    };
+    grid.appendChild(el);
+  });
+})();
 
 /* ===== Mood ===== */
 const mg=$('mood-grid');
@@ -767,7 +1121,66 @@ moods.forEach((m,i)=>{const b=document.createElement('div');b.className='mood';b
 
 /* ===== Spirit ===== */
 const sg=$('spirit-grid');
-fruits.forEach(f=>{const el=document.createElement('div');el.className='gift';el.innerHTML=`<div class="ico">${f.ico}</div><h3>${f.en}</h3><div class="h3hi hindi">${f.hi}</div><p>${f.d}</p>`;sg.appendChild(el);});
+// daily practice tracking — resets each day; same focus fruit for everyone per day
+const FRUIT_KEY='lw_fruit_'+(new Date().toISOString().slice(0,10)); // per-day key
+function loadFruitDone(){try{return new Set(JSON.parse(localStorage.getItem(FRUIT_KEY)||'[]'));}catch(e){return new Set();}}
+let fruitDone=loadFruitDone();
+function saveFruitDone(){try{localStorage.setItem(FRUIT_KEY,JSON.stringify([...fruitDone]));}catch(e){}}
+const focusIdx=(((dayNumber())%fruits.length)+fruits.length)%fruits.length;
+
+function renderFruitFocus(){
+  const f=fruits[focusIdx];
+  $('fruit-focus').innerHTML=`<span class="fico">${f.ico}</span>
+    <div class="ftxt"><div class="flabel">Fruit to grow today · आज का फल</div>
+      <div class="fname">${f.en}</div><div class="fname-hi hindi">${f.hi}</div>
+      <div class="fdesc">${f.d}</div></div>`;
+}
+function updateFruitCount(){
+  const n=fruitDone.size;
+  let c=$('fruit-count');
+  if(!c){c=document.createElement('div');c.className='fruit-count';c.id='fruit-count';$('fruit-focus').after(c);}
+  c.textContent=`${n} of 9 practices done today · आज ${n}/9 अभ्यास पूरे`;
+}
+function renderFruits(){
+  sg.innerHTML='';
+  fruits.forEach((f,i)=>{
+    const done=fruitDone.has(f.en);
+    const el=document.createElement('div');
+    el.className='gift'+(done?' done':'')+(i===focusIdx?'':'');
+    el.innerHTML=`
+      <div class="top-row"><span class="ico">${f.ico}</span>
+        <div class="titles"><h3>${f.en}</h3><div class="h3hi hindi">${f.hi}</div></div></div>
+      <div class="tease">${f.d}</div>
+      <div class="tapcue">Tap to open · खोलने को दबाएँ</div>
+      <div class="detail">
+        <span class="ref">${f.ref}</span>
+        <div class="reflect">${f.reflect}</div>
+        <div class="reflect-hi hindi">${f.reflecthi}</div>
+        <div class="practice">
+          <div class="plabel">Today's step · आज का कदम</div>
+          <div class="ptext">${f.task}</div>
+          <div class="ptext-hi hindi">${f.taskhi}</div>
+          <button class="check-btn">${done?'✓ Done today · आज पूरा':'Mark as done · पूरा करें'}</button>
+        </div>
+      </div>`;
+    // expand/collapse on card click (but not when clicking the check button)
+    el.addEventListener('click',(e)=>{
+      if(e.target.classList.contains('check-btn'))return;
+      el.classList.toggle('open');
+    });
+    el.querySelector('.check-btn').addEventListener('click',(e)=>{
+      e.stopPropagation();
+      if(fruitDone.has(f.en))fruitDone.delete(f.en);else fruitDone.add(f.en);
+      saveFruitDone();
+      const d=fruitDone.has(f.en);
+      el.classList.toggle('done',d);
+      e.target.textContent=d?'✓ Done today · आज पूरा':'Mark as done · पूरा करें';
+      updateFruitCount();
+    });
+    sg.appendChild(el);
+  });
+}
+renderFruitFocus();renderFruits();updateFruitCount();
 
 /* ===== Prayers ===== */
 const pg=$('prayer-grid');
@@ -899,14 +1312,15 @@ document.querySelectorAll('.collapsible .sec-head').forEach(head=>{
   head.addEventListener('click',()=>head.parentElement.classList.toggle('closed'));
 });
 
-const navBtns=document.querySelectorAll('nav button');
+const navBtns=document.querySelectorAll('nav button[data-go]');
 navBtns.forEach(b=>b.onclick=()=>{
   const sec=$(b.dataset.go);
+  if(!sec)return;
   openSection(sec);
   // wait a tick so the section has expanded before scrolling to it
   setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),60);
 });
-const secs=['today','mood','books66','spirit','prayers'].map(id=>$(id));
+const secs=['today','plan','mood','books66','spirit','prayers','memory','kids'].map(id=>$(id));
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navBtns.forEach(b=>b.classList.toggle('on',b.dataset.go===e.target.id));}),{rootMargin:'-40% 0px -55% 0px'});
 secs.forEach(s=>obs.observe(s));
 </script>
